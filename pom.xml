@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.siusta</groupId>
-    <artifactId>poor_flashcards_again</artifactId>
+    <artifactId>flashcards</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>poor_flashcards_again</name>
-    <description>Demo project for Spring Boot</description>
+    <name>flashcards</name>
+    <description>quasi-flashcard app for word learning</description>
 
     <properties>
         <java.version>11</java.version>
