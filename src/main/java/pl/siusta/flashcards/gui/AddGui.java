@@ -54,7 +54,7 @@ public class AddGui extends HorizontalLayout {
       //  right.setHeight();
      //   right.getStyle().set("border", "1px solid #9E9E9E");
         right.setAlignItems(Alignment.CENTER);
-        setFlexGrow(0.75,right);
+        setFlexGrow(1,right);
         right.setPadding(true);
         right.setSpacing(true);
         confirm.addClickListener(buttonClickEvent -> {

@@ -109,11 +109,11 @@ public class HomeGui extends VerticalLayout {
         TextField repeat = new TextField();
         Button next = new Button("next",buttonClickEvent -> {
             if(clicked.get()&&(i.get()<=fList.size()+2)){
-                if(fList.get(i.get()).getMeaning().equals(repeat.getValue())) {
+                if(fList.get(i.get()).getMeaning().equals(repeat.getValue().trim())) {
                     i.getAndIncrement();
                     clicked.set(false);
                 }
-                progressBar.setValue(i.get());
+                progressBar.setValue(i.get()/fList.size()+2);
             } else {
                 word.setText(fList.get(i.get()).getWord());
                 meaning.setText(fList.get(i.get()).getMeaning());
@@ -139,12 +139,12 @@ public class HomeGui extends VerticalLayout {
         Label score = new Label();
         Button confirm = new Button("ok",buttonClickEvent -> {
             if(clicked.get()&&(i.get()<=fList.size()+2)){
-                if(fList.get(i.get()).getMeaning().equals(meaning.getValue())) {
+                if(fList.get(i.get()).getMeaning().equals(meaning.getValue().trim())) {
                     ok.getAndIncrement();
                 }
                 score.setText("Your score: "+ok+"/"+fList.size());
                 i.getAndIncrement();
-                progressBar.setValue(i.get());
+                progressBar.setValue(i.get()/fList.size()+2);
                 clicked.set(false);
             } else {
                 word.setText(fList.get(i.get()).getWord());
