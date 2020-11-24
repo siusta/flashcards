@@ -51,14 +51,14 @@ public class AddGui extends HorizontalLayout {
     public void makeList(){
         List<Flashcard> flashcards = new ArrayList<>();
         VerticalLayout right = new VerticalLayout();
-      //  right.setHeight();
-     //   right.getStyle().set("border", "1px solid #9E9E9E");
+        right.setHeight("200px");
+        right.getStyle().set("border", "1px solid #9E9E9E");
         right.setAlignItems(Alignment.CENTER);
         setFlexGrow(1,right);
         right.setPadding(true);
         right.setSpacing(true);
         confirm.addClickListener(buttonClickEvent -> {
-            flashcards.add(new Flashcard(word.getValue(),meaning.getValue()));
+            flashcards.add(new Flashcard(word.getValue().trim(),meaning.getValue().trim()));
             Label list = new Label(word.getValue()+" -- "+meaning.getValue());
             right.add(list);
             word.clear();

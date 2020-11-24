@@ -28,7 +28,6 @@ public class HomeGui extends VerticalLayout {
 
     NavBar navbar = new NavBar();
     Dialog dialog = new Dialog();
-    VerticalLayout vlayout = new VerticalLayout();
     ProgressBar progressBar = new ProgressBar();
 
     @Autowired
@@ -36,7 +35,6 @@ public class HomeGui extends VerticalLayout {
         this.fService = fService;
         add(navbar);
         setMargin(true);
-        vlayout.setAlignItems(Alignment.CENTER);
         allLists();
     }
 
@@ -87,6 +85,8 @@ public class HomeGui extends VerticalLayout {
     }
 
     public void viewWords(List<Flashcard> fList){
+        VerticalLayout vlayout = new VerticalLayout();
+        vlayout.setAlignItems(Alignment.CENTER);
         dialog.open();
         for(int i=0; i<fList.size();i++){
             Label wordPair = new Label(fList.get(i).getWord()+" -- "+fList.get(i).getMeaning());
@@ -94,7 +94,6 @@ public class HomeGui extends VerticalLayout {
         }
         Button button = new Button("ok",buttonClickEvent -> {
             dialog.close();
-            vlayout.removeAll();
         });
         vlayout.add(button);
         dialog.add(vlayout);
@@ -102,6 +101,8 @@ public class HomeGui extends VerticalLayout {
 
     public void learn(List<Flashcard> fList) throws JsonProcessingException {
         dialog.open();
+        VerticalLayout vlayout = new VerticalLayout();
+        vlayout.setAlignItems(Alignment.CENTER);
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean clicked = new AtomicBoolean(true);
         Label word = new Label(fList.get(i.get()).getWord());
@@ -113,7 +114,7 @@ public class HomeGui extends VerticalLayout {
                     i.getAndIncrement();
                     clicked.set(false);
                 }
-                progressBar.setValue(i.get()/fList.size()+2);
+                progressBar.setValue((double)i.get()/fList.size()+2);
             } else {
                 word.setText(fList.get(i.get()).getWord());
                 meaning.setText(fList.get(i.get()).getMeaning());
@@ -129,8 +130,9 @@ public class HomeGui extends VerticalLayout {
 
     public void exercise(List<Flashcard> fList) throws JsonProcessingException {
         dialog.open();
+        VerticalLayout vlayout = new VerticalLayout();
+        vlayout.setAlignItems(Alignment.CENTER);
         Collections.shuffle(fList);
-
         AtomicInteger i = new AtomicInteger(0);
         AtomicInteger ok= new AtomicInteger();
         AtomicBoolean clicked = new AtomicBoolean(true);
@@ -144,7 +146,7 @@ public class HomeGui extends VerticalLayout {
                 }
                 score.setText("Your score: "+ok+"/"+fList.size());
                 i.getAndIncrement();
-                progressBar.setValue(i.get()/fList.size()+2);
+                progressBar.setValue((double) (i.get() / fList.size() + 2));
                 clicked.set(false);
             } else {
                 word.setText(fList.get(i.get()).getWord());
