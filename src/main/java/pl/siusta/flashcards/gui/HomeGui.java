@@ -114,7 +114,7 @@ public class HomeGui extends VerticalLayout {
                     i.getAndIncrement();
                     clicked.set(false);
                 }
-                progressBar.setValue((double)i.get()/fList.size()+2);
+             //   progressBar.setValue((double)i.get()/fList.size()+2);
             } else {
                 word.setText(fList.get(i.get()).getWord());
                 meaning.setText(fList.get(i.get()).getMeaning());
@@ -146,7 +146,7 @@ public class HomeGui extends VerticalLayout {
                 }
                 score.setText("Your score: "+ok+"/"+fList.size());
                 i.getAndIncrement();
-                progressBar.setValue((double) (i.get() / fList.size() + 2));
+              //  progressBar.setValue((double) (i.get() / fList.size() + 2));
                 clicked.set(false);
             } else {
                 word.setText(fList.get(i.get()).getWord());
