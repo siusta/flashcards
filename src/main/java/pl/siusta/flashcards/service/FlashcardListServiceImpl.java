@@ -38,9 +38,9 @@ public class FlashcardListServiceImpl implements FlashcardListService {
     }
 
     @Override
-    public void addFList(FlashcardList flashcardList) {
+    public Boolean addFList(FlashcardList flashcardList) {
         fListRepo.save(flashcardList);
-
+        return true;
     }
 
     @Override

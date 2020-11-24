@@ -9,7 +9,7 @@ public interface FlashcardListService {
     FlashcardList getFListById(Long id);
     List<FlashcardList> getFListByName(String name);
     List<FlashcardList> getFListByAuthor(String author);
-    void addFList(FlashcardList flashcardList);
+    Boolean addFList(FlashcardList flashcardList);
     void deleteFList(Long id);
     void editFList(Long id, FlashcardList fEdit);
 

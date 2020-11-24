@@ -2,7 +2,9 @@ package pl.siusta.flashcards.gui;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,10 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route("add")
-public class AddGui extends VerticalLayout {
+public class AddGui extends HorizontalLayout {
     FlashcardListService fService;
-    NavBar navbar = new NavBar();
 
+    NavBar navbar = new NavBar();
+    VerticalLayout left = new VerticalLayout();
+    VerticalLayout right = new VerticalLayout();
     TextField name = new TextField("name");
     TextField author = new TextField("author");
     TextField word = new TextField("word");
@@ -29,21 +33,23 @@ public class AddGui extends VerticalLayout {
 
     public AddGui(FlashcardListService fService) {
         this.fService = fService;
+        setSpacing(true);
         setPadding(true);
         setMargin(true);
+        left.getStyle().set("border", "1px solid #9E9E9E");
+        right.getStyle().set("border", "1px solid #9E9E9E");
         add(navbar);
         fieldsLayout();
         makeList();
     }
 
     public void fieldsLayout(){
-        HorizontalLayout horizontal1 = new HorizontalLayout();
-        horizontal1.add(name, author);
-        HorizontalLayout horizontal2 = new HorizontalLayout();
-        horizontal2.add(word, meaning);
-        HorizontalLayout horizontal3 = new HorizontalLayout();
-        horizontal3.add(confirm, save);
-        add(horizontal1,horizontal2,horizontal3);
+        VerticalLayout verticalLayout1 = new VerticalLayout();
+        verticalLayout1.add(name, word, confirm);
+        VerticalLayout verticalLayout2 = new VerticalLayout();
+        verticalLayout2.add(author, meaning, save);
+        left.add(verticalLayout1,verticalLayout2);
+        add(left);
     }
 
     public void makeList(){
@@ -52,7 +58,7 @@ public class AddGui extends VerticalLayout {
         confirm.addClickListener(buttonClickEvent -> {
             flashcards.add(new Flashcard(word.getValue(),meaning.getValue()));
             Label list = new Label(word.getValue()+" -- "+meaning.getValue());
-            add(list);
+            right.add(list);
             word.clear();
             meaning.clear();
         });
@@ -64,9 +70,26 @@ public class AddGui extends VerticalLayout {
                 e.printStackTrace();
             }
             FlashcardList flashcardList = new FlashcardList(name.getValue(),author.getValue(),jsonFlashcards);
-            fService.addFList(flashcardList);
+            if(fService.addFList(flashcardList)){
+                confirmSave("Word list saved.");
+            } else{
+                confirmSave("Something went wrong. Try again.");
+            };
         });
+        add(right);
+    }
 
+    public void confirmSave(String message){
+        Dialog dialog = new Dialog();
+        dialog.open();
+        VerticalLayout layout = new VerticalLayout();
+        Label label = new Label(message);
+        Button button = new Button("ok",buttonClickEvent -> dialog.close());
+        layout.add(label, button);
+        layout.setPadding(true);
+        layout.setSpacing(true);
+        layout.setAlignItems(Alignment.CENTER);
+        dialog.add(layout);
     }
 
     public String convertFlashcardsToString(List<Flashcard> flashcards) throws JsonProcessingException {

@@ -9,6 +9,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Route("")
 public class HomeGui extends VerticalLayout {
     FlashcardListService fService;
+
     NavBar navbar = new NavBar();
+    Dialog dialog = new Dialog();
+    VerticalLayout vlayout = new VerticalLayout();
+    HorizontalLayout hlayout = new HorizontalLayout();
+    ProgressBar progressBar = new ProgressBar();
 
     @Autowired
     public HomeGui(FlashcardListService fService) {
         this.fService = fService;
         add(navbar);
+        setMargin(true);
+        vlayout.setAlignItems(Alignment.CENTER);
         allLists();
     }
 
@@ -38,42 +46,59 @@ public class HomeGui extends VerticalLayout {
         List<FlashcardList> flashcardLists = fService.getAllFLists();
         for (FlashcardList f: flashcardLists
         ) {
-            HorizontalLayout layout = new HorizontalLayout();
-            layout.setWidth("97%");
-            layout.getStyle().set("border", "1px solid #9E9E9E");
-
+            hlayout.setWidth("97%");
+            hlayout.getStyle().set("border", "1px solid #9E9E9E");
             Label name = new Label(f.getName());
+            Button view = new Button("View",buttonClickEvent -> {
+                try {
+                    viewWords(dataSetUp(f.getId()));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            });
             Button learn = new Button("Learn",buttonClickEvent -> {
                 try {
-                    learn(f.getId());
+                    learn(dataSetUp(f.getId()));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
             });
             Button exercise = new Button("Exercise", buttonClickEvent -> {
                 try {
-                    exercise(f.getId());
+                    exercise(dataSetUp(f.getId()));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
             });
-            layout.setFlexGrow(1,name);
-            layout.setDefaultVerticalComponentAlignment(Alignment.CENTER);
-            layout.add(name,learn,exercise);
-            layout.setPadding(true);
-            layout.setMargin(true);
-            add(layout);
+            hlayout.setFlexGrow(1,name);
+            hlayout.setDefaultVerticalComponentAlignment(Alignment.CENTER);
+            hlayout.add(name,learn,exercise);
+            hlayout.setPadding(true);
+            hlayout.setMargin(true);
+            add(hlayout);
         }
 
     }
 
-    public void learn(Long id) throws JsonProcessingException {
-        Dialog dialog = new Dialog();
-        dialog.open();
-        VerticalLayout layout = new VerticalLayout();
+    public List<Flashcard> dataSetUp(Long id) throws JsonProcessingException {
         FlashcardList flashcardList = fService.getFListById(id);
         List<Flashcard> fList = getFlashcardsFromJson(flashcardList.getFlashcardsJSON());
+        return fList;
+    }
 
+    public void viewWords(List<Flashcard> fList){
+        dialog.open();
+        for(int i=0; i<fList.size();i++){
+            Label wordPair = new Label(fList.get(i).getWord()+" -- "+fList.get(i).getMeaning());
+            vlayout.add(wordPair);
+        }
+        Button button = new Button("ok",buttonClickEvent -> dialog.close());
+        vlayout.add(button);
+        dialog.add(vlayout);
+    }
+
+    public void learn(List<Flashcard> fList) throws JsonProcessingException {
+        dialog.open();
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean clicked = new AtomicBoolean(true);
         Label word = new Label(fList.get(i.get()).getWord());
@@ -85,6 +110,7 @@ public class HomeGui extends VerticalLayout {
                     i.getAndIncrement();
                     clicked.set(false);
                 }
+                progressBar.setValue(i.get());
             } else {
                 word.setText(fList.get(i.get()).getWord());
                 meaning.setText(fList.get(i.get()).getMeaning());
@@ -92,18 +118,14 @@ public class HomeGui extends VerticalLayout {
                 clicked.set(true);
             }
         });
-        layout.add(word,meaning,repeat,next);
-        dialog.add(layout);
+        vlayout.add(word,meaning,repeat,next, progressBar);
+        dialog.add(vlayout);
         next.addClickShortcut(Key.ENTER);
         next.setAutofocus(true);
     }
 
-    public void exercise(Long id) throws JsonProcessingException {
-        Dialog dialog = new Dialog();
+    public void exercise(List<Flashcard> fList) throws JsonProcessingException {
         dialog.open();
-        VerticalLayout layout = new VerticalLayout();
-        FlashcardList flashcardList = fService.getFListById(id);
-        List<Flashcard> fList = getFlashcardsFromJson(flashcardList.getFlashcardsJSON());
         Collections.shuffle(fList);
 
         AtomicInteger i = new AtomicInteger(0);
@@ -119,6 +141,7 @@ public class HomeGui extends VerticalLayout {
                 }
                 score.setText("Your score: "+ok+"/"+fList.size());
                 i.getAndIncrement();
+                progressBar.setValue(i.get());
                 clicked.set(false);
             } else {
                 word.setText(fList.get(i.get()).getWord());
@@ -127,8 +150,8 @@ public class HomeGui extends VerticalLayout {
             }
         });
         confirm.addClickShortcut(Key.ENTER);
-        layout.add(word,meaning,confirm,score);
-        dialog.add(layout);
+        vlayout.add(word,meaning,confirm,score);
+        dialog.add(vlayout);
         meaning.setAutofocus(true);
     }
 
