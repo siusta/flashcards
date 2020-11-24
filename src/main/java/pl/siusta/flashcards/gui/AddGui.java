@@ -2,7 +2,6 @@ package pl.siusta.flashcards.gui;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Label;
@@ -22,8 +21,6 @@ public class AddGui extends HorizontalLayout {
     FlashcardListService fService;
 
     NavBar navbar = new NavBar();
-    VerticalLayout left = new VerticalLayout();
-    VerticalLayout right = new VerticalLayout();
     TextField name = new TextField("name");
     TextField author = new TextField("author");
     TextField word = new TextField("word");
@@ -36,25 +33,27 @@ public class AddGui extends HorizontalLayout {
         setSpacing(true);
         setPadding(true);
         setMargin(true);
-        left.getStyle().set("border", "1px solid #9E9E9E");
-        right.getStyle().set("border", "1px solid #9E9E9E");
         add(navbar);
         fieldsLayout();
         makeList();
     }
 
     public void fieldsLayout(){
-        VerticalLayout verticalLayout1 = new VerticalLayout();
-        verticalLayout1.add(name, word, confirm);
-        VerticalLayout verticalLayout2 = new VerticalLayout();
-        verticalLayout2.add(author, meaning, save);
-        left.add(verticalLayout1,verticalLayout2);
-        add(left);
+        VerticalLayout left1 = new VerticalLayout();
+        VerticalLayout left2 = new VerticalLayout();
+
+        left1.add(name, word, confirm);
+        left2.add(author, meaning, save);
+
+        add(left1, left2);
     }
 
     public void makeList(){
         List<Flashcard> flashcards = new ArrayList<>();
-
+        VerticalLayout right = new VerticalLayout();
+        right.setWidth("48%");
+        right.getStyle().set("border", "1px solid #9E9E9E");
+        right.setAlignItems(Alignment.CENTER);
         confirm.addClickListener(buttonClickEvent -> {
             flashcards.add(new Flashcard(word.getValue(),meaning.getValue()));
             Label list = new Label(word.getValue()+" -- "+meaning.getValue());

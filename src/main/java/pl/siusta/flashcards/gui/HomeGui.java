@@ -29,7 +29,6 @@ public class HomeGui extends VerticalLayout {
     NavBar navbar = new NavBar();
     Dialog dialog = new Dialog();
     VerticalLayout vlayout = new VerticalLayout();
-    HorizontalLayout hlayout = new HorizontalLayout();
     ProgressBar progressBar = new ProgressBar();
 
     @Autowired
@@ -46,6 +45,7 @@ public class HomeGui extends VerticalLayout {
         List<FlashcardList> flashcardLists = fService.getAllFLists();
         for (FlashcardList f: flashcardLists
         ) {
+            HorizontalLayout hlayout = new HorizontalLayout();
             hlayout.setWidth("97%");
             hlayout.getStyle().set("border", "1px solid #9E9E9E");
             Label name = new Label(f.getName());
@@ -72,7 +72,7 @@ public class HomeGui extends VerticalLayout {
             });
             hlayout.setFlexGrow(1,name);
             hlayout.setDefaultVerticalComponentAlignment(Alignment.CENTER);
-            hlayout.add(name,learn,exercise);
+            hlayout.add(name,view,learn,exercise);
             hlayout.setPadding(true);
             hlayout.setMargin(true);
             add(hlayout);
