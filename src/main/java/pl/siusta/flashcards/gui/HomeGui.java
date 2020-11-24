@@ -92,7 +92,10 @@ public class HomeGui extends VerticalLayout {
             Label wordPair = new Label(fList.get(i).getWord()+" -- "+fList.get(i).getMeaning());
             vlayout.add(wordPair);
         }
-        Button button = new Button("ok",buttonClickEvent -> dialog.close());
+        Button button = new Button("ok",buttonClickEvent -> {
+            dialog.close();
+            vlayout.removeAll();
+        });
         vlayout.add(button);
         dialog.add(vlayout);
     }
