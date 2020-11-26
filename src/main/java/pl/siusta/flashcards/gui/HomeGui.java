@@ -157,22 +157,19 @@ public class HomeGui extends VerticalLayout {
         VerticalLayout vlayout = new VerticalLayout();
         vlayout.setAlignItems(Alignment.CENTER);
         AtomicInteger i = new AtomicInteger(0);
-        AtomicBoolean clicked = new AtomicBoolean(true);
         Label word = new Label(fList.get(i.get()).getWord());
         Label meaning = new Label(fList.get(i.get()).getMeaning());
         TextField repeat = new TextField();
         Button next = new Button("next",buttonClickEvent -> {
-            if(clicked.get()&&(i.get()<fList.size())){
+            if((i.get()<fList.size())){
                 if(fList.get(i.get()).getMeaning().equals(repeat.getValue().trim())) {
                     i.getAndIncrement();
-                    clicked.set(false);
+                    repeat.clear();
+                    word.setText(fList.get(i.get()).getWord());
+                    meaning.setText(fList.get(i.get()).getMeaning());
                 }
             } else {
-                if(i.get()==fList.size()) dialog.close();
-                word.setText(fList.get(i.get()).getWord());
-                meaning.setText(fList.get(i.get()).getMeaning());
-                repeat.clear();
-                clicked.set(true);
+                dialog.close();
             }
         });
         vlayout.add(word,meaning,repeat,next);
