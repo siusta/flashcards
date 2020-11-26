@@ -34,8 +34,10 @@ public class FlashcardListServiceImpl implements FlashcardListService {
 
     @Override
     public List<FlashcardList> getFListByAuthor(String author) {
-        return fListRepo.findAllByAuthor(author);
+        List<FlashcardList> tempFList = fListRepo.findAllByAuthor(author);
+        return tempFList;
     }
+
 
     @Override
     public Boolean addFList(FlashcardList flashcardList) {
@@ -48,10 +50,4 @@ public class FlashcardListServiceImpl implements FlashcardListService {
         fListRepo.deleteById(id);
     }
 
-    @Override
-    public void editFList(Long id, FlashcardList fEdit) {
-        FlashcardList flashcardList = getFListById(id);
-        flashcardList = fEdit;
-        fListRepo.save(flashcardList);
-    }
 }

@@ -11,6 +11,5 @@ public interface FlashcardListService {
     List<FlashcardList> getFListByAuthor(String author);
     Boolean addFList(FlashcardList flashcardList);
     void deleteFList(Long id);
-    void editFList(Long id, FlashcardList fEdit);
 
 }

@@ -18,9 +18,8 @@ public class NavBar extends AppLayout implements BeforeEnterObserver {
     public NavBar() {
         addNavTab("Home", HomeGui.class);
         addNavTab("Add new word list", AddGui.class);
+        addNavTab("About", AboutGui.class);
         addToNavbar(tabs);
-
-
     }
 
     private void addNavTab(String label, Class<? extends Component> target) {
@@ -28,6 +27,8 @@ public class NavBar extends AppLayout implements BeforeEnterObserver {
         navigationTargetToTab.put(target, tab);
         tabs.add(tab);
     }
+
+
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
