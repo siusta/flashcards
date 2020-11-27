@@ -1,4 +1,7 @@
 # Aplikacja do nauki słówek
+
+Adres: https://word-learning.herokuapp.com
+
 <p>Aplikacja umożliwia zapisanie do bazy danych listy słówek. 
 Następnie listę można przeglądać (wyświetlenie całej listy słówek), 
 uczyć się jej (aplikacja wyświetla po kolei każdą parę słówek, żeby przejść 
