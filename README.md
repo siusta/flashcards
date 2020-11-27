@@ -9,23 +9,23 @@ dalej należy wpisać prawidłowo drugie słowo z pary) i ćwiczyć znajomość 
 
 # Funkcjonalność
 <p>Strona główna: </p>
-![Home Page](/screenshots/home.PNG)<br><br>
+![Home Page](/img/home.PNG)<br><br>
 <p>Widok listy:</p>
-![View](/screenshots/view.PNG)<br><br>
+![View](/img/view.PNG)<br><br>
 <p>Tryb uczenia:</p>
-![Learn](/screenshots/learn.PNG)<br><br>
+![Learn](/img/learn.PNG)<br><br>
 <p>Tryb ćwiczeń:</p>
-![Exercise](/screenshots/exercise.PNG)<br><br>
+![Exercise](/img/exercise.PNG)<br><br>
 <p>Widok błędnych odpowiedzi:</p>
-![Wrong](/screenshots/exercise wrong.PNG)<br><br>
+![Wrong](/img/exercise wrong.PNG)<br><br>
 <p>Wyszukiwanie wg nazwy:</p>
-![Search name](/screenshots/search name.PNG)<br><br>
+![Search name](/img/search name.PNG)<br><br>
 <p>Wyszukiwanie wg autora:</p>
-![Search author](/screenshots/search author.PNG)<br><br>
+![Search author](/img/search author.PNG)<br><br>
 <p>Widok tworzenia listy:</p>
-![Add](/screenshots/add.PNG)<br><br>
+![Add](/img/add.PNG)<br><br>
 <p>Potwierdzenie:</p>
-![Added](/screenshots/added.PNG)<br><br>
+![Added](/img/added.PNG)<br><br>
 
 # Zawartość repozytorium
 <h3>Model</h3>
@@ -100,7 +100,7 @@ dalej należy wpisać prawidłowo drugie słowo z pary) i ćwiczyć znajomość 
 </ul>
 
 # Diagram klas
-![Uml}(/screenshots/uml.PNG)
+![Uml}(/img/uml.PNG)
 
 
 
