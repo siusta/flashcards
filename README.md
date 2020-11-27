@@ -9,23 +9,23 @@ dalej należy wpisać prawidłowo drugie słowo z pary) i ćwiczyć znajomość 
 
 # Funkcjonalność
 <p>Strona główna: </p>
-![Home Page](/img/home.PNG)<br><br>
+<img src ="/img/home.PNG" width="700"><img><br><br>
 <p>Widok listy:</p>
-![View](/img/view.PNG)<br><br>
+<img src ="/img/view.PNG" width="700"><img><br><br>
 <p>Tryb uczenia:</p>
-![Learn](/img/learn.PNG)<br><br>
+<img src ="/img/learn.PNG" width="700"><img><br><br>
 <p>Tryb ćwiczeń:</p>
-![Exercise](/img/exercise.PNG)<br><br>
+<img src ="/img/exercise.PNG" width="700"><img><br><br>
 <p>Widok błędnych odpowiedzi:</p>
-![Wrong](/img/exercise wrong.PNG)<br><br>
+<img src ="/img/exercise wrong.PNG" width="700"><img><br><br>
 <p>Wyszukiwanie wg nazwy:</p>
-![Search name](/img/search name.PNG)<br><br>
+<img src ="/img/search name.PNG" width="700"><img><br><br>
 <p>Wyszukiwanie wg autora:</p>
-![Search author](/img/search author.PNG)<br><br>
+<img src ="/img/search author.PNG" width="700"><img><br><br>
 <p>Widok tworzenia listy:</p>
-![Add](/img/add.PNG)<br><br>
+<img src ="/img/add.PNG" width="700"><img><br><br>
 <p>Potwierdzenie:</p>
-![Added](/img/added.PNG)<br><br>
+<img src ="/img/added.PNG"><img><br><br>
 
 # Zawartość repozytorium
 <h3>Model</h3>
@@ -100,7 +100,7 @@ dalej należy wpisać prawidłowo drugie słowo z pary) i ćwiczyć znajomość 
 </ul>
 
 # Diagram klas
-![Uml}(/img/uml.PNG)
+<img src ="/img/uml.PNG"><img><br><br>
 
 
 
